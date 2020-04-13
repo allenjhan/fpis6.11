@@ -1,0 +1,4 @@
+[0m[[0m[31merror[0m] [0m[0m/Users/allen/rep/fpis6.11/src/main/scala/StateCandyMachineTest.scala:5:65: State[Machine,(Int, Int)] does not take parameters[0m
+[0m[[0m[31merror[0m] [0m[0m  simulateMachine(List(Coin,Turn,Coin,Turn,Coin,Turn,Coin,Turn))(Machine(true, 10, 5))[0m
+[0m[[0m[31merror[0m] [0m[0m                                                                ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
