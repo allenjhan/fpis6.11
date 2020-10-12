@@ -160,4 +160,29 @@ object State {
     State(run)
   }
 
+
+
+  def simulateMachineAlt(inputs: List[Input]): State[Machine, (Int, Int)] = {
+    def simulateOneRoundAlt(input: Input)(currentState: Machine): ((Int, Int), Machine) = {
+      input match {
+        case Coin =>
+          if (currentState.locked) ((currentState.coins + 1, currentState.candies), currentState.copy(locked = false, coins = currentState.coins + 1))
+          else ((currentState.coins, currentState.candies), currentState)
+        case Turn =>
+          if (currentState.locked) ((currentState.coins, currentState.candies), currentState)
+          else ((currentState.coins, currentState.candies - 1), currentState.copy(locked = true, candies = currentState.candies - 1))
+      }
+    }
+
+    def simulateMachineAltInner(inputs: List[Input], currentState: State[Machine, (Int, Int)]): State[Machine, (Int, Int)] = {
+      inputs match {
+        case x::xs => currentState.flatMap(_ => State(simulateOneRoundAlt(x) _))
+        case Nil => currentState
+      }
+    }
+
+    simulateMachineAltInner(inputs, State(S => ((S.coins, S.candies), S)))
+  }
+
+
 }
